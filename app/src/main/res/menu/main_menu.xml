@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <group android:checkableBehavior="single">
+        <!--<item name="ic_menu_camera" type="drawable">@android:drawable/ic_menu_camera</item>-->
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/more_icon_score_pressed"
+            android:title="今日推荐"
+            android:checked="true" />
+        <item
+            android:id="@+id/nav_messages"
+            android:icon="@drawable/more_icon_feedback_pressed"
+            android:title="所有景点"/>
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/more_icon_aboutus_pressed"
+            android:title="关于我们"/>
+        <item
+            android:id="@+id/nav_friends"
+            android:icon="@drawable/ic_launcher"
+            android:title="Friends"
+            android:visible="false"/>
+        <item
+            android:id="@+id/nav_recommend"
+            android:icon="@drawable/ic_launcher"
+            android:title="Recommend"
+            android:visible="false"/>
+    </group>
+
+</menu>

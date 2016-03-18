@@ -1,0 +1,35 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/rectangle_conner">
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="名称"
+        android:textColor="@color/black"
+        android:padding="15dp"
+        android:layout_marginTop="5dp"
+        android:singleLine="true"/>
+    <TextView
+        android:id="@+id/tv_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="地址了"
+        android:paddingLeft="15dp"
+        android:layout_marginBottom="15dp"
+        android:singleLine="true"/>
+    <ImageView
+        android:id="@+id/iv_scenery"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+    <TextView
+        android:id="@+id/tv_describle"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:padding="10dp"/>
+</LinearLayout>
