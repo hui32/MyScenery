@@ -15,4 +15,8 @@ public class Constant {
     public class RequestParam{
         public final static String SCENERY_ID = "id";
     }
+    public class IntentParam{
+        public final static String PRODUCT_ID = "productId";
+        public final static String DETAIL_URL = "detail_Url";
+    }
 }

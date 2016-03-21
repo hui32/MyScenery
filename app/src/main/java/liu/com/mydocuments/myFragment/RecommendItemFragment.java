@@ -1,11 +1,13 @@
 package liu.com.mydocuments.myFragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -16,13 +18,17 @@ import com.zhy.http.okhttp.callback.StringCallback;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import liu.com.mydocuments.R;
+import liu.com.mydocuments.SceneryWvDetailActivity;
 import liu.com.mydocuments.constants.Constant;
 import liu.com.mydocuments.jsonBean.SceneryDetail;
 import liu.com.mydocuments.util.DataUtil;
+import liu.com.mydocuments.util.JumpUtil;
 import okhttp3.Call;
 
 /** 推荐景点*/
 public class RecommendItemFragment extends BaseFragment {
+    @Bind(R.id.ll_item)
+    LinearLayout ll_item;
     @Bind(R.id.tv_name)
     TextView tvName;
     @Bind(R.id.tv_address)
@@ -74,6 +80,7 @@ public class RecommendItemFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_rec_item, container, false);
 
         ButterKnife.bind(this, view);
+
         return view;
     }
 
@@ -107,7 +114,7 @@ public class RecommendItemFragment extends BaseFragment {
                 });
     }
 
-    private void showUI(SceneryDetail detail) {
+    private void showUI(final SceneryDetail detail) {
         SceneryDetail.RetDataEntity.TicketDetailEntity.DataEntity.DisplayEntity.TicketEntity ticket
                 = new SceneryDetail.RetDataEntity.TicketDetailEntity.DataEntity.DisplayEntity.TicketEntity();
         ticket = detail.retData.ticketDetail.data.display.ticket;
@@ -118,6 +125,17 @@ public class RecommendItemFragment extends BaseFragment {
                 .centerCrop()
                 .into(ivScenery);
         tvDescrible.setText(ticket.description);
+
+        ll_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!TextUtils.isEmpty(detail.retData.ticketDetail.loc)){
+                    Bundle b = new Bundle();
+                    b.putString(Constant.IntentParam.DETAIL_URL,detail.retData.ticketDetail.loc);
+                    JumpUtil.jumpToWithBoundle(getActivity(), SceneryWvDetailActivity.class,b);
+                }
+            }
+        });
 
     }
 

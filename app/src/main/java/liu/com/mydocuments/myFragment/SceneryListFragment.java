@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -68,8 +69,10 @@ public class SceneryListFragment extends BaseFragment implements SwipeRefreshLay
         setSwipeRefreshLy();
         swipeRefreshLy.setRefreshing(true);
         getData(PULL_TOREFRESH);
+        setRecycleViewScrollListener();
     }
 
+    /** 设置刷新监听*/
     private void setSwipeRefreshLy(){
         swipeRefreshLy.setOnRefreshListener(this);
     }
@@ -79,6 +82,7 @@ public class SceneryListFragment extends BaseFragment implements SwipeRefreshLay
         adapter = new RceneryRecycleAdapter(getActivity(), contents);
         rcvScenery.setAdapter(adapter);
     }
+    /** 从网络获取数据*/
     public void getData(final int refreshFlag) {
         OkHttpUtils
                 .get()
@@ -113,6 +117,50 @@ public class SceneryListFragment extends BaseFragment implements SwipeRefreshLay
                 });
     }
 
+    private void setRecycleViewScrollListener(){
+        rcvScenery.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {/**滑动停止**/
+                    Log.d("test", "recyclerView总共的Item个数:" +
+                            String.valueOf(recyclerView.getLayoutManager().getItemCount() - 1));
+                    Log.d("test", "recyclerView可见的Item个数:" +
+                            String.valueOf(recyclerView.getChildCount()));
+                    /**
+                     * 监听是否滑动到底部
+                     */
+                    //获取可见的最后一个view
+                    View lastChildView = recyclerView.getChildAt(
+                            recyclerView.getChildCount() - 1);
+
+
+                    //获取可见的最后一个view的位置
+                    int lastChildViewPosition = recyclerView.getChildAdapterPosition(lastChildView);
+
+                    //判断lastPosition是不是最后一个position
+                    if (lastChildViewPosition == recyclerView.getLayoutManager().getItemCount() - 1) {
+                        pageNo++;
+                        getData(PULL_TOADD_LOAD);
+                        Toast.makeText(getActivity(), "滑动到底部了", Toast.LENGTH_SHORT).show();
+                    }
+
+                    /**监听是否滑动到顶部**/
+                    //获取可见的第一个view
+                    View firstVisibleView = recyclerView.getChildAt(0);
+
+                    //获取可见的第一个view的位置
+                    int firstVisiblePosition = recyclerView.getChildAdapterPosition(firstVisibleView);
+
+                    if (firstVisiblePosition == 0) {
+                        Toast.makeText(getActivity(), "滑动到顶部了", Toast.LENGTH_SHORT).show();
+                    }
+                } else if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {/**手指还在recycleview上**/
+                } else if (newState == RecyclerView.SCROLL_STATE_SETTLING) {/**手指离开屏幕，单recycleview仍在滚动**/
+                }
+            }
+        });
+    }
     @Override
     public void onRefresh() {
         getData(PULL_TOREFRESH);
