@@ -132,7 +132,7 @@ public class RecommendItemFragment extends BaseFragment {
                 if (!TextUtils.isEmpty(detail.retData.ticketDetail.loc)){
                     Bundle b = new Bundle();
                     b.putString(Constant.IntentParam.DETAIL_URL,detail.retData.ticketDetail.loc);
-                    JumpUtil.jumpToWithBoundle(getActivity(), SceneryWvDetailActivity.class,b);
+                    JumpUtil.jumpWithBoundle(getActivity(), SceneryWvDetailActivity.class,b);
                 }
             }
         });

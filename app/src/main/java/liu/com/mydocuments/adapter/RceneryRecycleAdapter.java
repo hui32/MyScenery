@@ -44,7 +44,7 @@ public class RceneryRecycleAdapter extends RecyclerView.Adapter<RceneryRecycleAd
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putString(Constant.IntentParam.PRODUCT_ID,tickInfo.getProductId());
-                JumpUtil.jumpToWithBoundle(mContext, SceneryWvDetailActivity.class,bundle);
+                JumpUtil.jumpWithBoundle(mContext, SceneryWvDetailActivity.class,bundle);
                 Toast.makeText(mContext, "哇~你点了" + position, Toast.LENGTH_SHORT).show();
             }
         });
